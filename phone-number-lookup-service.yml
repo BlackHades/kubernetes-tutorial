@@ -12,7 +12,7 @@ spec:
       protocol: TCP
       targetPort: 80
       name: http
-  type: LoadBalancer
+  type: NodePort
 ---
 
 apiVersion: apps/v1
@@ -22,7 +22,7 @@ metadata:
   labels:
     app: phone-lookup-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: phone-lookup-service
