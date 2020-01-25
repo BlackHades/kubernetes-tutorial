@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: phone-lookup-service
+spec:
+  selector:
+    app: phone-lookup-service
+  ports:
+    - port: 8090
+      protocol: TCP
+      targetPort: 80
+  type: NodePort
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phone-lookup-service
+  labels:
+    app: phone-lookup-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phone-lookup-service
+  template:
+    metadata:
+      labels:
+        app: phone-lookup-service
+    spec:
+      containers:
+        - name: phone-lookup-service
+          image: registry.gitlab.com/tm30/microservices/phone-lookup-service:latest
+          envFrom:
+            - secretRef:
+                name: lookup-env
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      imagePullSecrets:
+        - name: gitlab-auth
