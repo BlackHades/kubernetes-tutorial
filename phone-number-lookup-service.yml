@@ -2,13 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: phone-lookup-service
+  labels:
+    app: phone-lookup-service
 spec:
   selector:
     app: phone-lookup-service
   ports:
-    - port: 80
+    - port: 8080
       protocol: TCP
       targetPort: 80
+      name: http
   type: NodePort
 ---
 
@@ -31,6 +34,7 @@ spec:
       containers:
         - name: phone-lookup-service
           image: registry.gitlab.com/tm30/microservices/phone-lookup-service:latest
+          imagePullPolicy: Always
           envFrom:
             - secretRef:
                 name: lookup-env
