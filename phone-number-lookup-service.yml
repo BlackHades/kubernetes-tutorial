@@ -6,7 +6,7 @@ spec:
   selector:
     app: phone-lookup-service
   ports:
-    - port: 8090
+    - port: 80
       protocol: TCP
       targetPort: 80
   type: NodePort
