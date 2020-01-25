@@ -12,7 +12,7 @@ spec:
       protocol: TCP
       targetPort: 80
       name: http
-  type: NodePort
+  type: LoadBalancer
 ---
 
 apiVersion: apps/v1
